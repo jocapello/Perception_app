@@ -378,7 +378,7 @@ if __name__ == "__main__":
     project_dir = os.path.dirname(os.path.realpath(__file__))
     model_path = os.path.join(project_dir, 'yolov8s.pt')
     cap = cv2.VideoCapture(os.path.join(project_dir, '4K Road traffic video for object detection and tracking - free download now!.mp4'))
-    out = cv2.VideoWriter(os.path.join(project_dir,'filename2.avi'), cv2.VideoWriter_fourcc(*'MJPG'), 30, (720, 1080))
+    out = cv2.VideoWriter('filename3.avi', cv2.VideoWriter_fourcc(*'XVID'), 30, (1080, 720))
     record = True
 
     class_list = ['car', 'motorcycle', 'truck', 'bus']  # Yolo classes
@@ -432,14 +432,12 @@ if __name__ == "__main__":
         annotation_overlay.draw_vehicle_counts(frame, tracked_objects, lane_speed_estimators)
 
         cv2.imshow("Processed Frame", frame)
-        if record:
-            out.write(frame)
+        out.write(frame)
 
         if cv2.waitKey(1) & 0xFF == 27:
             break
 
     cap.release()
-    if record:
-        out.release()
+    out.release()
     cv2.destroyAllWindows()
 
